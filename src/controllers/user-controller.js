@@ -22,11 +22,39 @@ module.exports = {
                 password: hashedPassword,
             });
 
-            const token = jwt.sign({ userId: newUser.id }, process.env.JWT_KEY, {
-                expiresIn: '1h',
-            });
+            const token = jwt.sign(
+                { userId: newUser.id },
+                process.env.JWT_KEY,
+                {
+                    expiresIn: '1h',
+                },
+            );
 
             res.status(201).json({ user: newUser, token });
+        } catch (error) {
+            res.status(500).json({ error: error.message });
+        }
+    },
+    async userLogin(req, res) {
+        try {
+            const { email, password } = req.body;
+
+            const user = await User.findOne({ where: { email } });
+            if (!user) {
+                return res
+                    .status(401)
+                    .json({ message: 'Incorrect email or password.' });
+            }
+            const passwordMatch = await bcrypt.compare(password, user.password);
+            if (!passwordMatch) {
+                return res
+                    .status(401)
+                    .json({ message: 'Incorrect email or password.' });
+            }
+            const token = jwt.sign({ userId: user.id }, process.env.JWT_KEY, {
+                expiresIn: '1h',
+            });
+            res.status(200).json({ token });
         } catch (error) {
             res.status(500).json({ error: error.message });
         }
@@ -46,7 +74,7 @@ module.exports = {
                     { name, email },
                     { where: { id } },
                 );
-                res.status(200).json({ user });
+                res.status(200).json({ message: 'User data updated successfully.' });
             }
         } catch (error) {
             res.status(400).json({ error });
