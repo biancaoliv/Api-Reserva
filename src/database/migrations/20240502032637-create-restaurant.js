@@ -27,17 +27,17 @@ module.exports = {
                 allowNull: false,
             },
             created_at: {
-              type: Sequelize.DATE,
-              allowNull: false,
-          },
-          updated_at: {
-              type: Sequelize.DATE,
-              allowNull: false,
-          },
+                type: Sequelize.DATE,
+                allowNull: false,
+            },
+            updated_at: {
+                type: Sequelize.DATE,
+                allowNull: false,
+            },
         });
     },
 
-     down(queryInterface, Sequelize) {
+    down(queryInterface, Sequelize) {
         return queryInterface.dropTable('restaurants');
     },
 };
