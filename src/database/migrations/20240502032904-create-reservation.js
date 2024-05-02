@@ -1,5 +1,6 @@
 'use strict';
 
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
     up: (queryInterface, Sequelize) => {
@@ -22,7 +23,7 @@ module.exports = {
                 type: Sequelize.INTEGER,
                 allowNull: false,
                 references: {
-                    model: 'Tables',
+                    model: 'tables',
                     key: 'id',
                 },
                 onUpdate: 'CASCADE',
@@ -32,7 +33,7 @@ module.exports = {
                 type: Sequelize.INTEGER,
                 allowNull: false,
                 references: {
-                    model: 'Users',
+                    model: 'users',
                     key: 'id',
                 },
                 onUpdate: 'CASCADE',
