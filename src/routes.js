@@ -4,11 +4,22 @@ const User = require('./models/User');
 const router = Router();
 const login = require('./middleware/login');
 
-// ROTAS CREATE-USER
+const restaurantController = require('./controllers/Restaurant-controller');
+
+// ROTAS USER
+
 router.post('/user-create', UserController.createUser);
 router.put('/user-update/:id', login.required, UserController.updateUser);
 router.get('/user-list', login.required, UserController.listUsers);
 router.delete('/user-delete/:id', login.required, UserController.deleteUser);
 router.post('/user-login', UserController.userLogin);
+
+// ROTAS RESTAURANTE
+
+router.post(
+    '/create-restaurant',
+    login.required,
+    restaurantController.createRestaurant,
+);
 
 module.exports = router;

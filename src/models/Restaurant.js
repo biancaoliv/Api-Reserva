@@ -1,6 +1,6 @@
 const { Model, DataTypes } = require('sequelize');
 
-class Tables extends Model {
+class Restaurant extends Model {
     static init(sequelize) {
         super.init(
             {
@@ -9,25 +9,22 @@ class Tables extends Model {
                     primaryKey: true,
                     autoIncrement: true,
                 },
-                tableNumber: DataTypes.STRING,
-                capacity: DataTypes.INTEGER,
-                availability: DataTypes.STRING,
+                name: DataTypes.STRING,
+                address: DataTypes.STRING,
+                cellPhone: DataTypes.STRING,
+                typeOfRestaurant: DataTypes.STRING,
             },
             {
                 sequelize,
-                modelName: 'Table',
-                tableName: 'tables',
+                modelName: 'Restaurant',
+                tableName: 'restaurants',
                 timestamps: true,
             },
         );
     }
-
     static associate(models) {
-        this.belongsTo(models.Restaurant, {
-            foreignKey: 'restaurantId',
-            onDelete: 'CASCADE',
-        });
+        this.hasMany(models.Table, { foreignKey: 'restaurantId' });
     }
 }
 
-module.exports = Tables;
+module.exports = Restaurant;
