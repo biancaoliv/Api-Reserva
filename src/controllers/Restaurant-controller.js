@@ -4,6 +4,7 @@ module.exports = {
     async createRestaurant(req, res) {
         try {
             const { name, address, cellPhone, typeOfRestaurant } = req.body;
+            console.log(req.body)
             
             const newRestaurant = await Restaurant.create({
                 name,

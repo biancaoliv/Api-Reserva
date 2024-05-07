@@ -18,7 +18,6 @@ router.post('/user-login', UserController.userLogin);
 
 router.post(
     '/create-restaurant',
-    login.required,
     restaurantController.createRestaurant,
 );
 
