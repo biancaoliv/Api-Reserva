@@ -1,30 +1,41 @@
 const { Model, DataTypes } = require('sequelize');
+const { sequelize } = require('../database/index');
 
-class Restaurant extends Model {
-    static init(sequelize) {
-        super.init(
-            {
-                id: {
-                    type: DataTypes.INTEGER,
-                    primaryKey: true,
-                    autoIncrement: true,
-                },
-                name: DataTypes.STRING,
-                address: DataTypes.STRING,
-                cellPhone: DataTypes.STRING,
-                typeOfRestaurant: DataTypes.STRING,
-            },
-            {
-                sequelize,
-                modelName: 'Restaurant',
-                tableName: 'restaurants',
-                timestamps: true,
-            },
-        );
-    }
-    static associate(models) {
-        this.hasMany(models.Table, { foreignKey: 'restaurantId' });
-    }
-}
+class Restaurant extends Model {}
+Restaurant.init(
+    {
+        id: {
+            type: DataTypes.INTEGER,
+            primaryKey: true,
+            autoIncrement: true,
+        },
+        name: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        address: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        cellPhone: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        typeOfRestaurant: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+    },
+    {
+        sequelize,
+        modelName: 'Restaurant',
+        tableName: 'restaurants',
+        timestamps: true,
+    },
+);
+
+Restaurant.associate = function (models) {
+    this.hasMany(models.Table, { foreignKey: 'restaurantId' });
+};
 
 module.exports = Restaurant;
