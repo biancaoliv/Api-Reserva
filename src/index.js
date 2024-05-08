@@ -1,8 +1,8 @@
 const express = require('express');
 const routes = require('./routes');
 const morgan = require('morgan');
+const { PORT, ENV } = require('./config/constants');
 const app = express();
-require('dotenv').config();
 
 require('./database')
 app.use(morgan('dev'));
@@ -26,7 +26,6 @@ app.use((error, req, res, next) => {
     });
 });
 
-const PORT = process.env.DB_PORT || 3000;
 app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`)
+    console.log(`Server is running on port ${PORT} with ${ENV} environment`)
 })
