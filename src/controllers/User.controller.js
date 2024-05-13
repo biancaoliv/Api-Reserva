@@ -7,7 +7,6 @@ module.exports = {
     async createUser(req, res) {
         try {
             const { name, email, password } = req.body;
-
             const hashedPassword = await bcrypt.hash(password, 10);
 
             const user = await User.findOne({ where: { email } });
@@ -74,7 +73,7 @@ module.exports = {
                     { name, email },
                     { where: { id } },
                 );
-                res.status(200).json({ message: 'User data updated successfully.' });
+                res.status(202).json({ message: 'User data updated successfully.' });
             }
         } catch (error) {
             res.status(400).json({ error });
@@ -90,7 +89,7 @@ module.exports = {
             }
             res.status(200).json({ users });
         } catch (error) {
-            res.status(400).json({ error });
+            res.status(401).json({ error });
         }
     },
     async deleteUser(req, res) {

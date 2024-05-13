@@ -18,11 +18,11 @@ module.exports = {
                 type: Sequelize.STRING,
                 allowNull: false,
             },
-            cellPhone: {
+            phone: {
                 type: Sequelize.STRING,
                 allowNull: false,
             },
-            typeOfRestaurant: {
+            type: {
                 type: Sequelize.STRING,
                 allowNull: false,
             },

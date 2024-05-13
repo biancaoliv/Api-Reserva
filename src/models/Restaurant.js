@@ -17,11 +17,11 @@ Restaurant.init(
             type: DataTypes.STRING,
             allowNull: false,
         },
-        cellPhone: {
+        phone: {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        typeOfRestaurant: {
+        type: {
             type: DataTypes.STRING,
             allowNull: false,
         },
