@@ -24,5 +24,7 @@ router.get('/tables-list', TableController.listTables);
 router.delete('/delete-table/:id', TableController.deleteTable);
 
 router.post('/create-reservation', ReservationController.createReservation);
+router.delete('/delete-reservation/:id', ReservationController.removeReservation);
+router.put('/update-reservation/:id', ReservationController.updateReservation)
 
 module.exports = router;
