@@ -3,13 +3,13 @@ const Restaurant = require('../models/Restaurant');
 module.exports = {
     async createRestaurant(req, res) {
         try {
-            const { name, address, phone, type } = req.body;
+            const { name, address, phone, category } = req.body;
 
             const newRestaurant = await Restaurant.create({
                 name,
                 address,
                 phone,
-                type,
+                category,
             });
             res.status(201).json({ restaurant: newRestaurant });
         } catch (error) {
@@ -19,7 +19,7 @@ module.exports = {
     async updateRestaurant(req, res) {
         try {
             const { id } = req.params;
-            const { name, address, phone, type } = req.body;
+            const { name, address, phone, category } = req.body;
             const existingRestaurant = await Restaurant.findOne({
                 where: { id },
             });
@@ -27,7 +27,7 @@ module.exports = {
                 return res.status(404).json({ error: 'Restaurant not found' });
             }
             await Restaurant.update(
-                { name, address, phone, type },
+                { name, address, phone, category },
                 { where: { id } },
             );
             res.status(202).json({

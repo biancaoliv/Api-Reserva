@@ -11,11 +11,11 @@ module.exports = {
                 autoIncrement: true,
                 allowNull: false,
             },
-            tableNumber: {
+            table: {
                 type: Sequelize.STRING,
                 allowNull: false,
             },
-            restauranteId: {
+            restaurant_Id: {
                 type: Sequelize.INTEGER,
                 allowNull: false,
                 references: {
@@ -33,11 +33,11 @@ module.exports = {
                 type: Sequelize.STRING,
                 allowNull: false,
             },
-            createdAt: {
+            created_at: {
                 type: Sequelize.DATE,
                 allowNull: false,
             },
-            updatedAt: {
+            updated_at: {
                 type: Sequelize.DATE,
                 allowNull: false,
             },
@@ -48,3 +48,5 @@ module.exports = {
         return queryInterface.dropTable('tables');
     },
 };
+
+

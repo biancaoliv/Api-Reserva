@@ -5,6 +5,8 @@ const router = Router();
 const login = require('./middleware/login');
 
 const RestaurantController = require('./controllers/Restaurant.controller');
+const TableController = require('./controllers/Table.controller');
+const ReservationController = require('./controllers/Reservation.controller');
 
 router.post('/user-create', UserController.createUser);
 router.put('/user-update/:id', UserController.updateUser);
@@ -15,5 +17,12 @@ router.post('/user-login', UserController.userLogin);
 router.post('/create-restaurant', RestaurantController.createRestaurant);
 router.put('/update-restaurant/:id', RestaurantController.updateRestaurant);
 router.delete('/delete-restaurant/:id', RestaurantController.removeRestaurant);
+
+router.post('/create-table', TableController.createTable);
+router.put('/table-update/:id', TableController.updateTable);
+router.get('/tables-list', TableController.listTables);
+router.delete('/delete-table/:id', TableController.deleteTable);
+
+router.post('/create-reservation', ReservationController.createReservation);
 
 module.exports = router;

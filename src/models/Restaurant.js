@@ -21,7 +21,7 @@ Restaurant.init(
             type: DataTypes.STRING,
             allowNull: false,
         },
-        type: {
+        category: {
             type: DataTypes.STRING,
             allowNull: false,
         },

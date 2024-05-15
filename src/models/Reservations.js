@@ -1,30 +1,33 @@
 const { Model, DataTypes } = require('sequelize');
+const { sequelize } = require('../database/index');
 
-class Reservation extends Model {
-    static init(sequelize) {
-        super.init(
-            {
-                id: {
-                    type: DataTypes.INTEGER,
-                    primaryKey: true,
-                    autoIncrement: true,
-                },
-                reservationDateTime: DataTypes.DATE,
-                numberOfPeople: DataTypes.INTEGER,
-                tableId: DataTypes.INTEGER,
-            },
-            {
-                sequelize,
-                modelName: 'Reservation',
-                tableName: 'reservations',
-                timestamps: true,
-            },
-        );
-    }
-        static associate(models) {
-            this.belongsTo(models.User, { foreignKey: 'userId' });
-            this.belongsTo(models.Table, { foreignKey: 'tableId' });
-        }
-}
+class Reservation extends Model {}
+Reservation.init(
+    {
+        id: {
+            type: DataTypes.INTEGER,
+            primaryKey: true,
+            autoIncrement: true,
+        },
+        reservationDateTime: DataTypes.DATE,
+        guests: DataTypes.INTEGER,
+        userId: DataTypes.INTEGER,
+        tableId: DataTypes.INTEGER,
+    },
+    {
+        sequelize,
+        modelName: 'Reservation',
+        tableName: 'reservations',
+        timestamps: true,
+    },
+);
+
+Reservation.associate = function (models) {
+    this.belongsTo(models.User, { foreignKey: 'userId', onDelete: 'CASCADE' });
+    this.belongsTo(models.Table, {
+        foreignKey: 'tableId',
+        onDelete: 'CASCADE',
+    });
+};
 
 module.exports = Reservation;

@@ -1,33 +1,33 @@
 const { Model, DataTypes } = require('sequelize');
+const { sequelize } = require('../database/index');
 
-class Tables extends Model {
-    static init(sequelize) {
-        super.init(
-            {
-                id: {
-                    type: DataTypes.INTEGER,
-                    primaryKey: true,
-                    autoIncrement: true,
-                },
-                tableNumber: DataTypes.STRING,
-                capacity: DataTypes.INTEGER,
-                availability: DataTypes.STRING,
-            },
-            {
-                sequelize,
-                modelName: 'Table',
-                tableName: 'tables',
-                timestamps: true,
-            },
-        );
-    }
+class Tables extends Model {}
+Tables.init(
+    {
+        id: {
+            type: DataTypes.INTEGER,
+            primaryKey: true,
+            autoIncrement: true,
+        },
+        table: DataTypes.STRING,
+        capacity: DataTypes.INTEGER,
+        availability: DataTypes.STRING,
+        restaurantId: DataTypes.INTEGER,
+    },
 
-    static associate(models) {
-        this.belongsTo(models.Restaurant, {
-            foreignKey: 'restaurantId',
-            onDelete: 'CASCADE',
-        });
-    }
-}
+    {
+        sequelize,
+        modelName: 'Table',
+        tableName: 'tables',
+        timestamps: true,
+    },
+);
+
+Tables.associate = function (models) {
+    this.belongsTo(models.Restaurant, {
+        foreignKey: 'restaurantId',
+        onDelete: 'CASCADE',
+    });
+};
 
 module.exports = Tables;
