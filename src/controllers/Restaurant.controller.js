@@ -1,57 +1,52 @@
-const Restaurant = require('../models/Restaurant');
+const restaurantService = require('../services/restaurantService');
 
 module.exports = {
     async createRestaurant(req, res) {
         try {
             const { name, address, phone, category } = req.body;
-
-            const newRestaurant = await Restaurant.create({
+            const newRestaurant = await restaurantService.createRestaurant(
                 name,
                 address,
                 phone,
                 category,
+            );
+            res.status(201).json({
+                message: 'Restaurant created successfully.',
+                restaurant: newRestaurant,
             });
-            res.status(201).json({ restaurant: newRestaurant });
         } catch (error) {
             res.status(500).json({ error: error.message });
         }
     },
+
     async updateRestaurant(req, res) {
         try {
             const { id } = req.params;
             const { name, address, phone, category } = req.body;
-            const existingRestaurant = await Restaurant.findOne({
-                where: { id },
-            });
-            if (!existingRestaurant) {
-                return res.status(404).json({ error: 'Restaurant not found' });
-            }
-            await Restaurant.update(
-                { name, address, phone, category },
-                { where: { id } },
+            await restaurantService.updateRestaurant(
+                id,
+                name,
+                address,
+                phone,
+                category,
             );
             res.status(202).json({
-                message: 'Restaurant data updated successfully.',
+                message: 'Restaurant updated successfully.',
             });
         } catch (error) {
-            res.status(400).json({ error });
+            res.status(400).json({ error: error.message });
         }
     },
+
     async removeRestaurant(req, res) {
         try {
             const { id } = req.params;
-            const restaurant = await Restaurant.findOne({ where: { id } });
-            if (!restaurant) {
-                return res
-                    .status(404)
-                    .json({ message: 'Restaurant not found' });
-            }
-            await Restaurant.destroy({ where: { id } });
-            return res
-                .status(202)
-                .json({ message: 'User deleted successfully' });
+            await restaurantService.removeRestaurant(id);
+            res.status(202).json({
+                message: 'Restaurant deleted successfully.',
+            });
         } catch (error) {
-            res.status(500).json({ error });
+            res.status(500).json({ error: error.message });
         }
     },
 };

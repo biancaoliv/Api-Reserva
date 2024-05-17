@@ -1,73 +1,43 @@
-const Table = require('../models/Tables');
+const tableService = require('../services/tableService');
 
 module.exports = {
     async createTable(req, res) {
         try {
             const { table, capacity, availability, restaurantId } = req.body;
-            const tableRestaurant = await Table.create({
-                table,
-                capacity,
-                availability,
-                restaurantId,
-            });
-            return res
-                .status(201)
-                .json({ message: 'Table created.', tableRestaurant });
+            const newTable = await tableService.createTable(table, capacity, availability, restaurantId);
+            res.status(201).json({ message: 'Table created.', table: newTable });
         } catch (error) {
             res.status(500).json({ error: error.message });
         }
     },
+
     async updateTable(req, res) {
         try {
             const { id } = req.params;
             const { table, capacity, availability, restaurantId } = req.body;
-
-            const tableUpdate = await Table.findOne({ where: { id } });
-
-            if (!tableUpdate) {
-                res.status(401).json({
-                    message: 'No tables found.',
-                });
-            } else {
-                const tableUpdate = await Table.update(
-                    { table, capacity, availability, restaurantId },
-                    { where: { id } },
-                );
-                res.status(202).json({
-                    message: 'Table updated successfully.',
-                });
-            }
+            await tableService.updateTable(id, table, capacity, availability, restaurantId);
+            res.status(202).json({ message: 'Table updated successfully.' });
         } catch (error) {
-            res.status(400).json({ error });
+            res.status(400).json({ error: error.message });
         }
     },
+
     async listTables(req, res) {
         try {
-            const tables = await Table.findAll();
-            if(!tables) {
-                res.status(404).json({
-                    message: 'Tables not found',
-                });
-            }
+            const tables = await tableService.listTables();
             res.status(200).json({ tables });
         } catch (error) {
-            res.status(401).json({ error });
-
+            res.status(500).json({ error: error.message });
         }
     },
+
     async deleteTable(req, res) {
         try {
-            const { id } = req.params
-            const tables = await Table.findOne({ where: { id }})
-
-            if(!tables) {
-                return res.status(404).json({ message: 'Table not found' })
-            } else {
-                await Table.destroy({ where: { id }})
-                return res.status(200).json({ message: 'Table deleted sucessfully'})
-            }
+            const { id } = req.params;
+            await tableService.deleteTable(id);
+            res.status(200).json({ message: 'Table deleted successfully.' });
         } catch (error) {
-            return res.status(500).json({ error: error.message });
+            res.status(500).json({ error: error.message });
         }
     }
 };
