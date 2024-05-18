@@ -1,26 +1,34 @@
-const Restaurant = require('../models/Restaurant');
+const restaurantRepository = require('../repository/restaurantRepository');
 
 module.exports = {
     async createRestaurant(name, address, phone, category) {
-        const newRestaurant = await Restaurant.create({ name, address, phone, category });
+        const newRestaurant = await restaurantRepository.createRestaurant({
+            name,
+            address,
+            phone,
+            category,
+        });
         return newRestaurant;
     },
 
     async updateRestaurant(id, name, address, phone, category) {
-        const existingRestaurant = await Restaurant.findOne({ where: { id } });
+        const existingRestaurant = await restaurantRepository.updateRestaurant(id, {
+            name,
+            address,
+            phone,
+            category,
+        });
         if (!existingRestaurant) {
             throw new Error('Restaurant not found');
         }
-        await Restaurant.update({ name, address, phone, category }, { where: { id } });
         return existingRestaurant;
     },
 
-    async removeRestaurant(id) {
-        const restaurant = await Restaurant.findOne({ where: { id } });
-        if (!restaurant) {
+    async deleteRestaurant(id) {
+        const deletedRestaurant = await restaurantRepository.deleteRestaurant(id);
+        if (!deletedRestaurant) {
             throw new Error('Restaurant not found');
         }
-        await Restaurant.destroy({ where: { id } });
-        return restaurant;
+        return deletedRestaurant;
     }
 };

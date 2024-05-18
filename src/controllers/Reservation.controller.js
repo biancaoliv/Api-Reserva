@@ -1,38 +1,33 @@
 const reservationService = require('../services/reservationService');
 
 module.exports = {
-    async createReservation(req, res) {
+    createReservation: async (req, res) => {
         const { reservationDateTime, guests, userId, tableId } = req.body;
-        const reservationTable = await reservationService.createReservation(
+        return await reservationService.createReservation({
             reservationDateTime,
             guests,
             userId,
             tableId,
-        );
-        return {
-            message: 'Reservation created successfully!',
-            reservationTable,
-        };
+        });
     },
 
-    async updateReservation(req, res) {
+    updateReservation: async (req, res) => {
         const { id } = req.params;
         const { reservationDateTime, guests, userId, tableId } = req.body;
-        await reservationService.updateReservation(
-            id,
+        await reservationService.updateReservation(id, {
             reservationDateTime,
             guests,
             userId,
             tableId,
-        );
+        });
         return {
             message: 'Reservation updated successfully.',
         };
     },
 
-    async removeReservation(req, res) {
+    deleteReservation: async (req, res) => {
         const { id } = req.params;
-        await reservationService.removeReservation(id);
+        await reservationService.deleteReservation(id);
         return {
             message: 'Reservation deleted successfully.',
         };

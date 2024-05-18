@@ -18,7 +18,6 @@ const routeWrapper = (routeAction) => {
     }
 }
 
-
 router.post('/api/users/create', routeWrapper(UserController.createUser));
 router.put('/api/users/:id', routeWrapper(UserController.updateUser));
 router.get('/api/users', routeWrapper(UserController.listUsers));

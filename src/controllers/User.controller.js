@@ -1,33 +1,33 @@
 const userService = require('../services/userService');
 
 module.exports = {
-    async createUser(req, res) {
+    createUser: async (req, res) => {
         const { name, email, password } = req.body;
         const result = await userService.createUser(name, email, password);
-        return { status: 201, data: result };
+        return { message: 'User created successfully!', user: result };
     },
 
-    async userLogin(req, res) {
+    userLogin: async (req, res) => {
         const { email, password } = req.body;
         const result = await userService.userLogin(email, password);
-        return { status: 200, data: result };
+        return { message: 'User logged in successfully!', user: result };
     },
 
-    async updateUser(req, res) {
+    updateUser: async (req, res) => {
         const { id } = req.params;
         const { name, email } = req.body;
         const result = await userService.updateUser(id, name, email);
-        return { status: 202, message: result };
+        return { message: 'User updated successfully!', user: result };
     },
 
-    async listUsers(req, res) {
+    listUsers: async (req, res) => {
         const result = await userService.listUsers();
-        return { status: 200, data: result };
+        return { message: 'Users retrieved successfully!', users: result };
     },
 
-    async deleteUser(req, res) {
+    deleteUser: async (req, res) => {
         const { id } = req.params;
         const result = await userService.deleteUser(id);
-        return { status: 200, message: result };
-    },
+        return { message: 'User deleted successfully!', user: result };
+    }
 };
