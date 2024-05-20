@@ -4,10 +4,9 @@ const morgan = require('morgan');
 const { PORT, ENV } = require('./config/constants');
 const app = express();
 
-require('./database')
+require('./database');
 app.use(morgan('dev'));
 app.use(express.json());
-
 
 app.use(routes);
 
@@ -21,11 +20,11 @@ app.use((error, req, res, next) => {
     res.status(error.status || 500);
     res.json({
         erro: {
-            mensagem: error.message
-        }
+            mensagem: error.message,
+        },
     });
 });
 
 app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT} with ${ENV} environment`)
-})
+    console.log(`Server is running on port ${PORT} with ${ENV} environment`);
+});

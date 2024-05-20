@@ -2,7 +2,6 @@
 
 const { sequelize } = require('..');
 
-
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
     up: (queryInterface, Sequelize) => {
@@ -14,6 +13,10 @@ module.exports = {
                 allowNull: false,
             },
             reservation_Date_Time: {
+                type: Sequelize.DATE,
+                allowNull: false,
+            },
+            end_Time: {
                 type: Sequelize.DATE,
                 allowNull: false,
             },

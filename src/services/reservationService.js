@@ -2,7 +2,30 @@ const reservationRepository = require('../repository/reservationRepository');
 
 module.exports = {
     async createReservation(reservationData) {
-        return await reservationRepository.createReservation(reservationData);
+        const { reservationDateTime, guests, userId, tableId } = reservationData;
+
+        const endTime = new Date(reservationDateTime);
+        endTime.setHours(endTime.getHours() + 4);
+
+        const existingReservation = await reservationRepository.findReservationByTimeAndTable({
+            reservationDateTime,
+            endTime,
+            tableId,
+        });
+
+        if (existingReservation) {
+            throw new Error('Table not available for the desired time');
+        }
+
+        const newReservation = await reservationRepository.createReservation({
+            reservationDateTime,
+            endTime,
+            guests,
+            userId,
+            tableId,
+        });
+
+        return newReservation;
     },
 
     async updateReservation(id, newData) {
@@ -11,5 +34,5 @@ module.exports = {
 
     async removeReservation(id) {
         return await reservationRepository.removeReservation(id);
-    }
+    },
 };

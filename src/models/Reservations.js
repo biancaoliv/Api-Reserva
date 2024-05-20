@@ -13,6 +13,7 @@ Reservation.init(
         guests: DataTypes.INTEGER,
         userId: DataTypes.INTEGER,
         tableId: DataTypes.INTEGER,
+        endTime: DataTypes.DATE,
     },
     {
         sequelize,

@@ -11,5 +11,23 @@ module.exports = {
 
     async deleteReservation(id) {
         return await Reservation.findByIdAndDelete(id);
-    }
+    },
+
+    async findReservationByTimeAndTable({
+        reservationDateTime,
+        endTime,
+        tableId,
+    }) {
+        return await Reservation.findOne({
+            where: {
+                tableId,
+                reservationDateTime: {
+                    $lte: endTime,
+                },
+                endTime: {
+                    $gte: reservationDateTime,
+                },
+            },
+        });
+    },
 };
