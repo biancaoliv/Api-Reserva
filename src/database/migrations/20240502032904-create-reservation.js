@@ -1,7 +1,5 @@
 'use strict';
 
-const { sequelize } = require('..');
-
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
     up: (queryInterface, Sequelize) => {
@@ -12,11 +10,11 @@ module.exports = {
                 autoIncrement: true,
                 allowNull: false,
             },
-            starts_At: {
+            starts_at: {
                 type: Sequelize.DATE,
                 allowNull: false,
             },
-            duration_In_Minutes: {
+            duration_in_minutes: {
                 type: Sequelize.INTEGER,
                 allowNull: false,
             },
@@ -24,7 +22,7 @@ module.exports = {
                 type: Sequelize.INTEGER,
                 allowNull: false,
             },
-            table_Id: {
+            table_id: {
                 type: Sequelize.INTEGER,
                 allowNull: false,
                 references: {
@@ -34,7 +32,7 @@ module.exports = {
                 onUpdate: 'CASCADE',
                 onDelete: 'CASCADE',
             },
-            user_Id: {
+            user_id: {
                 type: Sequelize.INTEGER,
                 allowNull: false,
                 references: {
@@ -43,14 +41,6 @@ module.exports = {
                 },
                 onUpdate: 'CASCADE',
                 onDelete: 'CASCADE',
-            },
-            simple_Name: {
-                type: Sequelize.STRING,
-                allowNull: false
-            },
-            simple_Phone: {
-                type: Sequelize.STRING,
-                allowNull: false
             },
             created_at: {
                 type: Sequelize.DATE,

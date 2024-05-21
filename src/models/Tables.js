@@ -8,11 +8,24 @@ Tables.init(
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true,
+            allowNull: false,
         },
-        table: DataTypes.STRING,
-        capacity: DataTypes.INTEGER,
-        availability: DataTypes.STRING,
-        restaurantId: DataTypes.INTEGER,
+        table: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        capacity: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+        },
+        availability: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        restaurantId: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+        },
     },
 
     {

@@ -1,7 +1,5 @@
 'use strict';
 
-const { password } = require('../../config/database');
-
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
     up(queryInterface, Sequelize) {

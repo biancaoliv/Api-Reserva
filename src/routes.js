@@ -6,6 +6,7 @@ const UserController = require('./controllers/User.controller');
 const RestaurantController = require('./controllers/Restaurant.controller');
 const TableController = require('./controllers/Table.controller');
 const ReservationController = require('./controllers/Reservation.controller');
+const simpleReservationController = require('./controllers/SimpleReservation.controller')
 
 const routeWrapper = (routeAction) => {
     return async (request, response) => {
@@ -26,7 +27,7 @@ router.post('/api/users/login', routeWrapper(UserController.userLogin));
 
 router.post('/api/restaurants/create', routeWrapper(RestaurantController.createRestaurant));
 router.put('/api/restaurants/:id', routeWrapper(RestaurantController.updateRestaurant));
-router.delete('/api/restaurants/:id', routeWrapper(RestaurantController.removeRestaurant));
+router.delete('/api/restaurants/:id', routeWrapper(RestaurantController.deleteRestaurant));
 
 router.post('/api/restaurants/:restaurantId/tables', routeWrapper(TableController.createTable));
 router.put('/api/tables/:id', routeWrapper(TableController.updateTable));
@@ -34,8 +35,9 @@ router.get('/api/tables', routeWrapper(TableController.listTables));
 router.delete('/api/tables/:id', routeWrapper(TableController.deleteTable));
 
 router.post('/api/reservations/create', routeWrapper(ReservationController.createReservation));
-router.post('/api/reservations/create/simple', routeWrapper(ReservationController.createSimpleReservation))
 router.put('/api/reservations/:id', routeWrapper(ReservationController.updateReservation));
-router.delete('/api/reservations/:id', routeWrapper(ReservationController.removeReservation));
+router.delete('/api/reservations/:id', routeWrapper(ReservationController.deleteReservation));
+
+router.post('/api/simple/Reservation/create', routeWrapper(simpleReservationController.createSimpleReservation));
 
 module.exports = router;

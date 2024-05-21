@@ -1,36 +1,46 @@
 'use strict';
 
-
-/** @type {import('sequelize-cli').Migration} */
 module.exports = {
-    up: (queryInterface, Sequelize) => {
-        return queryInterface.createTable('tables', {
+    up(queryInterface, Sequelize) {
+        return queryInterface.createTable('simpleReservations', {
             id: {
                 type: Sequelize.INTEGER,
                 primaryKey: true,
                 autoIncrement: true,
                 allowNull: false,
             },
-            table: {
+            simple_name: {
                 type: Sequelize.STRING,
                 allowNull: false,
             },
-            restaurant_id: {
+            simple_phone: {
+                type: Sequelize.STRING,
+                allowNull: false,
+            },
+            starts_at: {
+                type: Sequelize.DATE,
+                allowNull: false,
+            },
+            ends_at: {
+                type: Sequelize.DATE,
+                allowNull: false,
+            },
+            table_id: {
                 type: Sequelize.INTEGER,
                 allowNull: false,
                 references: {
-                    model: 'restaurants',
+                    model: 'tables',
                     key: 'id',
                 },
                 onUpdate: 'CASCADE',
                 onDelete: 'CASCADE',
             },
-            capacity: {
-                type: Sequelize.STRING,
+            duration_in_minutes: {
+                type: Sequelize.INTEGER,
                 allowNull: false,
             },
-            availability: {
-                type: Sequelize.STRING,
+            guests: {
+                type: Sequelize.INTEGER,
                 allowNull: false,
             },
             created_at: {
@@ -44,9 +54,7 @@ module.exports = {
         });
     },
 
-     down(queryInterface, Sequelize) {
-        return queryInterface.dropTable('tables');
+    down(queryInterface, Sequelize) {
+        return queryInterface.dropTable('simpleReservations');
     },
 };
-
-

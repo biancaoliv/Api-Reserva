@@ -8,15 +8,28 @@ Reservation.init(
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true,
+            allowNull: false
         },
-        startsAt: DataTypes.DATE,
-        durationInMinutes: DataTypes.INTEGER,
-        guests: DataTypes.INTEGER,
-        userId: DataTypes.INTEGER,
-        tableId: DataTypes.INTEGER,
-        endTime: DataTypes.DATE,
-        simpleName: DataTypes.STRING,
-        simplePhone: DataTypes.STRING
+        startsAt: {
+            type: DataTypes.DATE,
+            allowNull: false,
+        },
+        durationInMinutes:{ 
+            type: DataTypes.INTEGER,
+            allowNull: false,
+        },
+        guests: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+        },
+        userId: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+        },
+        tableId:{ 
+            type: DataTypes.INTEGER,
+            allowNull: false,
+        },
     },
     {
         sequelize,

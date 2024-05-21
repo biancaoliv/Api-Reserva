@@ -4,13 +4,15 @@ module.exports = {
     async createReservation(reservationData) {
         const { startsAt, guests, userId, tableId } = reservationData;
 
-        const endTime = new Date(startsAt);
-        endTime.setHours(endTime.getHours() + 4);
+        const startsAtDate = new Date(startsAt);
+        const endsAtDate = new Date(startsAt);
+        endsAtDate.setHours(endsAtDate.getHours() + 4);
+        const durationInMinutes = (endsAtDate - startsAtDate) / (1000 * 60);
 
         const existingReservation =
             await reservationRepository.findReservationByTimeAndTable({
                 startsAt,
-                endTime,
+                durationInMinutes,
                 tableId,
             });
 
@@ -20,30 +22,13 @@ module.exports = {
 
         const newReservation = await reservationRepository.createReservation({
             startsAt,
-            endTime,
+            durationInMinutes,
             guests,
             userId,
             tableId,
         });
 
         return newReservation;
-    },
-    async createSimpleReservation(reservationSimpleData) {
-        const { startsAt, guests, userId, tableId, simpleName, simplePhone } =
-            reservationSimpleData;
-            if (!simpleName || !simplePhone) {
-                throw new Error('Name and phone number are required for a minimum reservation');
-            }
-            const newReservationSimple = await reservationRepository.createSimpleReservation({
-                startsAt,
-                guests,
-                userId,
-                tableId,
-                simpleName,
-                simplePhone,
-            });
-    
-            return newReservationSimple;
     },
 
     async updateReservation(id, newData) {

@@ -10,17 +10,6 @@ module.exports = {
             tableId,
         });
     },
-    createSimpleReservation: async (req, res) => {
-        const { startsAt, guests, userId,tableId, simpleName, simplePhone } = req.body;
-        return await reservationService.createSimpleReservation({
-            startsAt,
-            guests,
-            userId,
-            tableId,
-            simpleName,
-            simplePhone,
-        });
-    },
 
     updateReservation: async (req, res) => {
         const { id } = req.params;
