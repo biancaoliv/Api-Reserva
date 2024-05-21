@@ -12,12 +12,12 @@ module.exports = {
                 autoIncrement: true,
                 allowNull: false,
             },
-            reservation_Date_Time: {
+            starts_At: {
                 type: Sequelize.DATE,
                 allowNull: false,
             },
-            end_Time: {
-                type: Sequelize.DATE,
+            duration_In_Minutes: {
+                type: Sequelize.INTEGER,
                 allowNull: false,
             },
             guests: {
@@ -43,6 +43,14 @@ module.exports = {
                 },
                 onUpdate: 'CASCADE',
                 onDelete: 'CASCADE',
+            },
+            simple_Name: {
+                type: Sequelize.STRING,
+                allowNull: false
+            },
+            simple_Phone: {
+                type: Sequelize.STRING,
+                allowNull: false
             },
             created_at: {
                 type: Sequelize.DATE,

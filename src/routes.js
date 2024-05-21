@@ -34,6 +34,7 @@ router.get('/api/tables', routeWrapper(TableController.listTables));
 router.delete('/api/tables/:id', routeWrapper(TableController.deleteTable));
 
 router.post('/api/reservations/create', routeWrapper(ReservationController.createReservation));
+router.post('/api/reservations/create/simple', routeWrapper(ReservationController.createSimpleReservation))
 router.put('/api/reservations/:id', routeWrapper(ReservationController.updateReservation));
 router.delete('/api/reservations/:id', routeWrapper(ReservationController.removeReservation));
 

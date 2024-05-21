@@ -2,20 +2,31 @@ const reservationService = require('../services/reservationService');
 
 module.exports = {
     createReservation: async (req, res) => {
-        const { reservationDateTime, guests, userId, tableId } = req.body;
+        const { startsAt, guests, userId, tableId } = req.body;
         return await reservationService.createReservation({
-            reservationDateTime,
+            startsAt,
             guests,
             userId,
             tableId,
         });
     },
+    createSimpleReservation: async (req, res) => {
+        const { startsAt, guests, userId,tableId, simpleName, simplePhone } = req.body;
+        return await reservationService.createSimpleReservation({
+            startsAt,
+            guests,
+            userId,
+            tableId,
+            simpleName,
+            simplePhone,
+        });
+    },
 
     updateReservation: async (req, res) => {
         const { id } = req.params;
-        const { reservationDateTime, guests, userId, tableId } = req.body;
+        const { startsAt, guests, userId, tableId } = req.body;
         await reservationService.updateReservation(id, {
-            reservationDateTime,
+            startsAt,
             guests,
             userId,
             tableId,

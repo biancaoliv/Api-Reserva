@@ -2,23 +2,24 @@ const reservationRepository = require('../repository/reservationRepository');
 
 module.exports = {
     async createReservation(reservationData) {
-        const { reservationDateTime, guests, userId, tableId } = reservationData;
+        const { startsAt, guests, userId, tableId } = reservationData;
 
-        const endTime = new Date(reservationDateTime);
+        const endTime = new Date(startsAt);
         endTime.setHours(endTime.getHours() + 4);
 
-        const existingReservation = await reservationRepository.findReservationByTimeAndTable({
-            reservationDateTime,
-            endTime,
-            tableId,
-        });
+        const existingReservation =
+            await reservationRepository.findReservationByTimeAndTable({
+                startsAt,
+                endTime,
+                tableId,
+            });
 
         if (existingReservation) {
             throw new Error('Table not available for the desired time');
         }
 
         const newReservation = await reservationRepository.createReservation({
-            reservationDateTime,
+            startsAt,
             endTime,
             guests,
             userId,
@@ -26,6 +27,23 @@ module.exports = {
         });
 
         return newReservation;
+    },
+    async createSimpleReservation(reservationSimpleData) {
+        const { startsAt, guests, userId, tableId, simpleName, simplePhone } =
+            reservationSimpleData;
+            if (!simpleName || !simplePhone) {
+                throw new Error('Name and phone number are required for a minimum reservation');
+            }
+            const newReservationSimple = await reservationRepository.createSimpleReservation({
+                startsAt,
+                guests,
+                userId,
+                tableId,
+                simpleName,
+                simplePhone,
+            });
+    
+            return newReservationSimple;
     },
 
     async updateReservation(id, newData) {

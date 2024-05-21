@@ -9,11 +9,14 @@ Reservation.init(
             primaryKey: true,
             autoIncrement: true,
         },
-        reservationDateTime: DataTypes.DATE,
+        startsAt: DataTypes.DATE,
+        durationInMinutes: DataTypes.INTEGER,
         guests: DataTypes.INTEGER,
         userId: DataTypes.INTEGER,
         tableId: DataTypes.INTEGER,
         endTime: DataTypes.DATE,
+        simpleName: DataTypes.STRING,
+        simplePhone: DataTypes.STRING
     },
     {
         sequelize,
