@@ -19,5 +19,6 @@
             "name": "api_reserva",
             "database": "C:\\Users\\biaav\\Documents\\clone_test\\Api-Reserva\\src\\database\\database.sqlite"
         }
-    ]
+    ],
+    "codium.codeCompletion.enable": true
 }
