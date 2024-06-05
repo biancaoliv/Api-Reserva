@@ -90,6 +90,8 @@ describe('User Controller', () => {
         userService.deleteUser.mockResolvedValue(deletedUser);
 
         await deleteUser(req, res, next);
+        expect(res.status).toHaveBeenCalledWith(200);
+
     });
 });
 
